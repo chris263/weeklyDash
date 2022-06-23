@@ -22,10 +22,10 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       p("Por favor, selecione as opções abaixo:"),
-      selectInput("", "TPP",
+      selectInput("tpp", "TPP",
                   c("","TPP09","TPP10","TPP11","TPP12")
                   ),
-      selectInput("", "PLC",
+      selectInput("plc", "PLC",
                   c("",4,5,6)
       )
     )
@@ -42,9 +42,9 @@ ui <- dashboardPage(
                                     fluidRow(valueBoxOutput("trialN", width = 12))),
                              column(width = 4, 
                                     fluidRow(valueBoxOutput("datapN", width = 12))),
-                             selectInput("select", h3("Select box"), 
-                                         choices = list("Choice 1" = 1, "Choice 2" = 2,
-                                                        "Choice 3" = 3), selected = 1),
+                             selectInput("myHB1", 
+                                         label = "Selecione o Hibrido",
+                                         choices = unique(myDF2$genotipo)),
                              br(),
                              h3("Enfezamento"),
                              br(),
@@ -61,9 +61,10 @@ ui <- dashboardPage(
                              column(width = 6, 
                                     fluidRow(valueBoxOutput("jointLoc", width = 12))),
                              column(width = 6,
-                                    selectInput("", "Selecione o Hibrido",
-                                                 c("",4,5,6)),
-                                    fluidRow(valueBoxOutput("compHB", width = 12))),
+                                    selectInput("myHB2", 
+                                                label = "Selecione o Hibrido",
+                                                choices = unique(myDF2$genotipo),
+                                    fluidRow(valueBoxOutput("compHB", width = 12)))),
                              br(),
                              
                              column(width = 3,

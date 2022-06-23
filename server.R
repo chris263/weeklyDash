@@ -4,30 +4,54 @@
 # chris.simoes@syngenta.com
 
 myDF <- readxl::read_xlsx("data/blupDoencas2022-06-17.xlsx",sheet = "Sheet1")
+myCount <- readxl::read_xlsx("data/TPP09_count.xlsx",sheet = "Sheet1")
+
+myGenLoc <- readxl::read_xlsx("data/TPP09_genoLoca-2022-06-23.xlsx",sheet = "Sheet1")
+myChecks <- readxl::read_xlsx("data/renataMilho21062022.xlsx",sheet = "Checks")
 
 server <- function(input, output, session) {
   
   observe({
     
+    inTPP <- input$tpp
+    inPLC <- input$plc
+    selHB <- input$myHB
     
-    reactLocN <- 30
+    # inTPP <- "TPP09"
+    # inPLC <- 6
+    
+    myDF2 <- myGenLoc %>% filter(TPP == inTPP, stage==inPLC)
+    
+    
+    reactLocN <- myCount %>% filter(TPP %in% inTPP, stage %in% inPLC, codigo == "Total")
     reactTrialN <- 100
     reactDatapN <- 25000
     
+    # Can also set the label and select items
+    updateSelectInput(session, "myHB1",
+                      choices = unique(myDF2$genotipo),
+                      selected = selHB
+    )
+    
+    updateSelectInput(session, "myHB2",
+                      choices = unique(myDF2$genotipo),
+                      selected = selHB
+    )
+    
     output$locN <- renderValueBox({
-      valueBox(value = reactLocN,
+      valueBox(value = reactLocN$BU,
                subtitle = "Locais",
                color = "green")
     })
     
     output$trialN <- renderValueBox({
-      valueBox(value = reactTrialN,
+      valueBox(value = reactLocN$experimentos,
                subtitle = "Trials",
                color = "light-blue")
     })
     
     output$datapN <- renderValueBox({
-      valueBox(value = reactDatapN,
+      valueBox(value = reactLocN$dataPoints,
                subtitle = "Data Points",
                color = "orange")
     })
