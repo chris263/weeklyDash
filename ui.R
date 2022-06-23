@@ -31,9 +31,23 @@ ui <- dashboardPage(
     )
   ),
   dashboardBody(
-    tabPanel("resumoHB",
-             mainPanel(
-               h3("Resumo dos Híbridos")
-             ))
+    fluidPage(
+      tabsetPanel(type = "tabs",
+                  tabPanel("resumoHB",
+                           mainPanel(
+                             h3("Resumo dos Híbridos"),
+                             column(width = 3, 
+                                    fluidRow(valueBoxOutput("locN", width = 12))),
+                             column(width = 3, 
+                                    fluidRow(valueBoxOutput("trialN", width = 12))),
+                             column(width = 3, 
+                                    fluidRow(valueBoxOutput("datapN", width = 12))),
+                             selectInput("select", h3("Select box"), 
+                                         choices = list("Choice 1" = 1, "Choice 2" = 2,
+                                                        "Choice 3" = 3), selected = 1),
+                             br(),
+                           ))
+                  )
+      )
   )
 )
