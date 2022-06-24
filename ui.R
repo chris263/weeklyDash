@@ -16,6 +16,10 @@ library(ggplot2)
 # Chris Simoes
 # chris.simoes@syngenta.com
 
+source("code/support.R")
+source("code/graficos.R")
+
+carga()# Carregando os dados
 
 ui <- dashboardPage(
   dashboardHeader(title="Reporte Semanal", titleWidth=230),
@@ -31,7 +35,7 @@ ui <- dashboardPage(
     )
   ),
   dashboardBody(
-    fluidPage(
+    fixedPage(
       tabsetPanel(type = "tabs",
                   tabPanel("resumoHB",
                            mainPanel(
@@ -44,50 +48,54 @@ ui <- dashboardPage(
                                     fluidRow(valueBoxOutput("datapN", width = 12))),
                              selectInput("myHB1", 
                                          label = "Selecione o Hibrido",
-                                         choices = unique(myDF2$genotipo)),
+                                         choices = unique(myDF$genotipo)),
                              br(),
                              h3("Enfezamento"),
                              br(),
-                             column(width = 3, 
-                                    fluidRow(valueBoxOutput("locTPP09", width = 12))),
-                             column(width = 3, 
-                                    fluidRow(valueBoxOutput("locTPP10", width = 12))),
-                             
-                             column(width = 3, 
-                                    fluidRow(valueBoxOutput("locTPP11", width = 12))),
-                             column(width = 3, 
-                                    fluidRow(valueBoxOutput("locTPP12", width = 12))),
+                             column(width = 6, 
+                                    fluidRow(plotOutput("locTPP09"))),
+                             column(width = 6, 
+                                    fluidRow(plotOutput("locTPP10"))),
                              br(),
                              column(width = 6, 
-                                    fluidRow(valueBoxOutput("jointLoc", width = 12))),
+                                    fluidRow(plotOutput("locTPP11"))),
+                             
+                             column(width = 6, 
+                                    fluidRow(plotOutput("locTPP12"))),
+                             br(),
+              
+                
                              column(width = 6,
-                                    selectInput("myHB2", 
+                                    fluidRow(plotOutput("jointLoc"))),
+
+                             column(width = 6,
+                                    selectInput("myHB2",
                                                 label = "Selecione o Hibrido",
-                                                choices = unique(myDF2$genotipo),
-                                    fluidRow(valueBoxOutput("compHB", width = 12)))),
+                                                choices = unique(myDF$genotipo)),
+                                    fluidRow(plotOutput("compHB"))),
                              br(),
                              
-                             column(width = 3,
-                                    h4("Mancha Branca - LFSTR"),
-                                    fluidRow(valueBoxOutput("lfstr", width = 12))),
+                             column(width = 4,
+                                    h4("Mancha Branca"),
+                                    fluidRow(valueBoxOutput("lfspr", width = 12))),
                             
-                             column(width = 3,
-                                    h4("Cercospora - GRLSR"),
+                             column(width = 4,
+                                    h4("Cercospora"),
                                     fluidRow(valueBoxOutput("grlsr", width = 12))),
-                             column(width = 3,
-                                    h4("Turcicum - HELMR"),
+                             column(width = 4,
+                                    h4("Turcicum"),
                                     fluidRow(valueBoxOutput("helmr", width = 12))),
                              br(),
                              
-                             column(width = 3, 
-                                    fluidRow( h4("Bipolaris - SCLBR"),
-                                              valueBoxOutput("sclbr", width = 12))),
-                             column(width = 3, 
-                                    fluidRow( h4("Ferrugem - SRSTR"),
-                                              valueBoxOutput("srstr", width = 12))),
-                             column(width = 3, 
-                                    fluidRow( h4("Diplodia - DLLFR"),
-                                              valueBoxOutput("dllfr", width = 12))),
+                             column(width = 4,
+                                    h4("Bipolaris"),
+                                    fluidRow(valueBoxOutput("sclbr", width = 12))),
+                             column(width = 4,
+                                    h4("Ferrugem"),
+                                    fluidRow(valueBoxOutput("srstr", width = 12))),
+                             column(width = 4,
+                                    h4("Diplodia "),
+                                    fluidRow(valueBoxOutput("dllfr", width = 12))),
                              
                            ))
                   )
