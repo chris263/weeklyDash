@@ -1,14 +1,14 @@
 carga <- function(){
-  myDF <<- readxl::read_xlsx("data/blupDoencas2022-06-17.xlsx",sheet = "Sheet1")
-  myCount <<- readxl::read_xlsx("data/TPP09_count.xlsx",sheet = "Sheet1")
+  myDF <<- readxl::read_xlsx("data/blupDoencas_2022-06-24.xlsx",sheet = "Sheet1")
+  myCount <<- readxl::read_xlsx("data/TPPs_count.xlsx",sheet = "Sheet1")
   
-  myGenLoc <<- readxl::read_xlsx("data/TPP09_genoLoca-2022-06-23.xlsx",sheet = "Sheet1")
+  myGenLoc <<- readxl::read_xlsx("data/TPPs_genoLoc-2022-06-23.xlsx",sheet = "Sheet1")
   myChecks0 <- readxl::read_xlsx("data/renataMilho21062022.xlsx",sheet = "Checks")
   myChecks <- tidyr::gather(myChecks0, TPP, valor,TPP09:TPP12)
   myChecks$valor <- as.numeric(myChecks$valor)
   myChecks <<- myChecks
   myJoint <<- readxl::read_xlsx("data/conjuntaGenotipos.xlsx",sheet = "Sheet1")
-  myDD <<- readxl::read_xlsx("data/blupDoencas.xlsx", sheet = "Sheet1")
+  myDD <<- readxl::read_xlsx("data/blupDoencas_2022-06-24.xlsx", sheet = "Sheet1")
 }
 
 colorFun <- function(reactColor){
