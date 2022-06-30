@@ -9,6 +9,8 @@ library(DT)
 library(shinydashboard)
 library(dplyr)
 library(ggplot2)
+library(leaflet)
+library(RColorBrewer)
 
 
 # This is the interface CSAR
@@ -36,8 +38,9 @@ ui <- dashboardPage(
   ),
   dashboardBody(
     fixedPage(
-      tabsetPanel(type = "tabs",
-                  tabPanel("resumoHB",
+      tabsetPanel(id = "my_tabsetPanel",
+                  type = "tabs",
+                  tabPanel("Híbridos",
                            mainPanel(
                              h3("Resumo dos Híbridos"),
                              column(width = 4, 
@@ -97,8 +100,14 @@ ui <- dashboardPage(
                                     h4("Diplodia "),
                                     fluidRow(valueBoxOutput("dllfr", width = 12))),
                              
-                           ))
+                           )),
+                  tabPanel("Locais",
+                           leafletOutput('map2'),
+                           br(),
+                           h4("Teste")
+
                   )
       )
   )
+)
 )

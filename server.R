@@ -6,6 +6,21 @@
 
 server <- function(input, output, session) {
   
+  output$map2 <- renderLeaflet({
+    leaflet() %>% 
+      addTiles() %>% 
+      setView(-93.65, 42.0285, zoom = 6)
+  })
+  
+  observe({
+    input$my_tabsetPanel
+  tab2 <- leafletProxy('map2', data = pts) %>% 
+    clearMarkers() %>% 
+    addCircleMarkers(lng = ~x, lat = ~y, radius = input$radius)
+  
+})
+
+  
   observe({
     
     inTPP <- input$tpp
@@ -137,4 +152,4 @@ server <- function(input, output, session) {
     
   })
   
-  }
+}
